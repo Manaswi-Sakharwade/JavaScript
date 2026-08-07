@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Palindrome Checker - PRN 24070521169</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            width: 350px;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            color: #4b7bec;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #4b7bec;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3867d6;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-size: 17px;
+            color: #444;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>🔍 Palindrome Checker</h2>
+
+    <input type="text" id="text" placeholder="Enter a word">
+
+    <button onclick="checkPalindrome()">Check</button>
+
+    <div id="result"></div>
+
+    <div class="footer">
+        PRN: 24070521169
+    </div>
+
+</div>
+
+
+<script>
+
+    // Function Declaration
+    function checkPalindrome() {
+
+        try {
+
+            let input = document.getElementById("text").value;
+
+            // Error handling using throw
+            if (input.trim() === "") {
+                throw "Please enter a word!";
+            }
+
+
+            // Function Expression
+            const reverseString = function(str) {
+                return str.split("").reverse().join("");
+            };
+
+
+            // Arrow Function
+            const cleanText = (str) => str.toLowerCase();
+
+
+            let original = cleanText(input);
+            let reversed = reverseString(original);
+
+
+            // Closure Example
+            function palindromeCounter() {
+
+                let count = 0;
+
+                return function() {
+                    count++;
+                    return count;
+                }
+            }
+
+            let counter = palindromeCounter();
+
+            let attempts = counter();
+
+
+            // Checking palindrome
+            if (original === reversed) {
+
+                document.getElementById("result").innerHTML =
+                `
+                ✅ <b>${input}</b> is a Palindrome!<br>
+                Attempts: ${attempts}
+                `;
+
+            } 
+            else {
+
+                document.getElementById("result").innerHTML =
+                `
+                ❌ <b>${input}</b> is not a Palindrome.<br>
+                Reverse: ${reversed}
+                `;
+
+            }
+
+
+            console.log("Original:", original);
+            console.log("Reversed:", reversed);
+
+        }
+
+        catch(error) {
+
+            document.getElementById("result").innerHTML =
+            "⚠️ " + error;
+
+            console.error(error);
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
