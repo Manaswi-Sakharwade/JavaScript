@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript String & Regex Lab</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            width: 460px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .student-info {
+            background-color: #e9ecef;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+        }
+
+        .student-info label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .student-info input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .student-info input:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 16px;
+            margin: 5px 0 12px 0;
+            text-transform: uppercase;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            background: #eef8ff;
+            padding: 12px;
+            border-left: 4px solid #2f00ff;
+            border-radius: 4px;
+        }
+
+        .result-line {
+            font-size: 13px;
+            margin: 6px 0;
+            line-height: 1.4;
+            word-break: break-all;
+        }
+
+        .label-title {
+            font-weight: bold;
+            color: #111;
+        }
+
+        .student-output {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Student Details -->
+    <div class="student-info">
+
+        <label for="nameInput">Name:</label>
+        <input
+            type="text"
+            id="nameInput"
+            placeholder="Enter your name"
+        >
+
+        <label for="prnInput">PRN:</label>
+        <input
+            type="text"
+            id="prnInput"
+            placeholder="Enter your PRN"
+        >
+
+    </div>
+
+    <h2>Text Analysis & Regex Extraction</h2>
+
+    <!-- Input Form Area -->
+    <label for="textInput">
+        Enter your sentence/paragraph below:
+    </label>
+
+    <textarea
+        id="textInput"
+        rows="4"
+        placeholder="Example: Hello! Send the report to arya.k@domain.com by tonight. Thanks!"
+    ></textarea>
+
+    <button onclick="processText()">
+        Analyze & Extract Data
+    </button>
+
+    <!-- Consolidated Output Area -->
+    <div class="result-box">
+
+        <div class="student-output">
+            <div class="result-line">
+                <span class="label-title">Name:</span>
+                <span id="nameOut">-</span>
+            </div>
+
+            <div class="result-line">
+                <span class="label-title">PRN:</span>
+                <span id="prnOut">-</span>
+            </div>
+        </div>
+
+        <div class="result-line">
+            <span class="label-title">1. Extracted Email:</span>
+            <span id="emailOut">-</span>
+        </div>
+
+        <div class="result-line">
+            <span class="label-title">2. Text Length:</span>
+            <span id="lengthOut">0 characters</span>
+        </div>
+
+        <div class="result-line">
+            <span class="label-title">3. Word Count:</span>
+            <span id="wordOut">0 words</span>
+        </div>
+
+        <div class="result-line">
+            <span class="label-title">4. Uppercase Format:</span>
+            <span id="upperOut">-</span>
+        </div>
+
+        <div class="result-line">
+            <span class="label-title">5. Lowercase Format:</span>
+            <span id="lowerOut">-</span>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function processText() {
+
+        // Read student details
+        const name = document.getElementById('nameInput').value.trim();
+        const prn = document.getElementById('prnInput').value.trim();
+
+        document.getElementById('nameOut').innerText = name || "-";
+        document.getElementById('prnOut').innerText = prn || "-";
+
+        // Read original raw string
+        const rawText = document.getElementById('textInput').value;
+        const trimmedText = rawText.trim();
+
+        // --- REGEX TASK: Email Validation & Extraction ---
+        const emailRegex =
+            /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
+        const foundEmails = trimmedText.match(emailRegex);
+
+        if (foundEmails && foundEmails.length > 0) {
+            document.getElementById('emailOut').innerText =
+                "✅ " + foundEmails.join(", ");
+        } else {
+            document.getElementById('emailOut').innerText =
+                "❌ No valid email address found.";
+        }
+
+        // --- STRING FUNCTIONS TASK ---
+
+        // 1. Text Length
+        const textLength = rawText.length;
+
+        document.getElementById('lengthOut').innerText =
+            textLength + " characters";
+
+        // 2. Word Count using split()
+        const wordsArray = trimmedText.split(/\s+/);
+
+        const wordCount =
+            trimmedText === "" ? 0 : wordsArray.length;
+
+        document.getElementById('wordOut').innerText =
+            wordCount + " words";
+
+        // 3. Case Transformations
+        const uppercaseText = rawText.toUpperCase();
+        const lowercaseText = rawText.toLowerCase();
+
+        document.getElementById('upperOut').innerText =
+            uppercaseText || "-";
+
+        document.getElementById('lowerOut').innerText =
+            lowercaseText || "-";
+    }
+</script>
+
+</body>
+</html>
