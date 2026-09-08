@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gym Admission Form</title>
+<style>
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #e0f7fa; /* Pastel cyan background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .form-container {
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    background-color: #ffffff; /* White background for form */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 700;
+    font-size: 1.8em;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  input[type="time"],
+  select {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  select:focus {
+    border-color: #66bb6a; /* Pastel green on focus */
+    outline: none;
+  }
+  button {
+    padding: 14px;
+    background-color: #81c784; /* Pastel green */
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #66bb6a;
+  }
+</style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Gym Admission Form</h1>
+    <form>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="number" id="phone" placeholder="Enter your phone number" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" placeholder="Enter your address" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="membership">Membership Type:</label>
+        <select id="membership" required>
+          <option value="">Select Membership</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="date">Joining Date:</label>
+        <input type="date" id="date" />
+      </div>
+      
+      <div class="form-group">
+        <label for="time">Joining Time:</label>
+        <input type="time" id="time" />
+      </div>
+      
+      <div class="form-group" style="margin-top: 30px;">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
