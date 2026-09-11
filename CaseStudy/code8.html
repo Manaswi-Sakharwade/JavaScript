@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Job Application Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  input.valid {
+    border-color: green;
+  }
+
+  input.invalid {
+    border-color: red;
+  }
+
+  small {
+    color: red;
+    font-size: 0.9em;
+  }
+
+  #submitBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #submitBtn:hover {
+    background-color: #45a049;
+  }
+
+  #success {
+    display: none;
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h2>Job Application Form</h2>
+<form id="jobForm">
+  <!-- Full Name -->
+  <div class="form-group">
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" />
+    <small id="nameError"></small>
+  </div>
+
+  <!-- Date of Birth -->
+  <div class="form-group">
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" />
+    <small id="dobError"></small>
+  </div>
+
+  <!-- Gender -->
+  <div class="form-group">
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender">
+      <option value="">Select</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <small id="genderError"></small>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" />
+    <small id="emailError"></small>
+  </div>
+
+  <!-- Mobile -->
+  <div class="form-group">
+    <label for="mobile">Mobile:</label>
+    <input type="text" id="mobile" name="mobile" />
+    <small id="mobileError"></small>
+  </div>
+
+  <!-- Address -->
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <textarea id="address" name="address" rows="3"></textarea>
+    <small id="addressError"></small>
+  </div>
+
+  <!-- City -->
+  <div class="form-group">
+    <label for="city">City/State:</label>
+    <input type="text" id="city" name="city" />
+    <small id="cityError"></small>
+  </div>
+
+  <!-- PIN -->
+  <div class="form-group">
+    <label for="pin">PIN code:</label>
+    <input type="text" id="pin" name="pin" />
+    <small id="pinError"></small>
+  </div>
+
+  <!-- Qualification -->
+  <div class="form-group">
+    <label for="qualification">Highest Qualification:</label>
+    <select id="qualification" name="qualification">
+      <option value="">Select</option>
+      <option value="High School">High School</option>
+      <option value="Bachelor's">Bachelor's</option>
+      <option value="Master's">Master's</option>
+      <option value="PhD">PhD</option>
+    </select>
+    <small id="qualificationError"></small>
+  </div>
+
+  <!-- University -->
+  <div class="form-group">
+    <label for="university">University/Institute:</label>
+    <input type="text" id="university" name="university" />
+    <small id="universityError"></small>
+  </div>
+
+  <!-- Passing Year -->
+  <div class="form-group">
+    <label for="passingYear">Passing Year:</label>
+    <input type="text" id="passingYear" name="passingYear" />
+    <small id="passingYearError"></small>
+  </div>
+
+  <!-- Percentage / CGPA -->
+  <div class="form-group">
+    <label for="percentage">Percentage / CGPA:</label>
+    <input type="text" id="percentage" name="percentage" />
+    <small id="percentageError"></small>
+  </div>
+
+  <!-- Job Position -->
+  <div class="form-group">
+    <label for="position">Job Position:</label>
+    <input type="text" id="position" name="position" />
+    <small id="positionError"></small>
+  </div>
+
+  <!-- Experience -->
+  <div class="form-group">
+    <label for="experience">Experience:</label>
+    <select id="experience" name="experience">
+      <option value="">Select</option>
+      <option value="Fresher">Fresher</option>
+      <option value="1-3 years">1-3 years</option>
+      <option value="3-5 years">3-5 years</option>
+      <option value="More than 5 years">More than 5 years</option>
+    </select>
+    <small id="experienceError"></small>
+  </div>
+
+  <!-- Programming Languages -->
+  <div class="form-group">
+    <label for="languages">Programming Languages:</label>
+    <input type="text" id="languages" name="languages" />
+    <small id="languagesError"></small>
+  </div>
+
+  <!-- Technical Skills -->
+  <div class="form-group">
+    <label for="skills">Technical Skills:</label>
+    <input type="text" id="skills" name="skills" />
+    <small id="skillsError"></small>
+  </div>
+
+  <!-- Submit and Reset Buttons -->
+  <div style="text-align: center; margin-top: 20px;">
+    <button type="submit" id="submitBtn">Submit</button>
+    <button type="reset">Reset</button>
+  </div>
+
+  <!-- Success Message -->
+  <div id="success"></div>
+</form>
+
+<script>
+  // Validation functions
+  const form = document.getElementById("jobForm");
+
+  function setError(id, message) {
+      const input = document.getElementById(id);
+      const error = document.getElementById(id + "Error");
+
+      input.classList.remove("valid");
+      input.classList.add("invalid");
+      error.textContent = message;
+  }
+
+  function setValid(id) {
+      const input = document.getElementById(id);
+      const error = document.getElementById(id + "Error");
+
+      input.classList.remove("invalid");
+      input.classList.add("valid");
+      error.textContent = "";
+  }
+
+  /* Full Name */
+  function validateName() {
+      const value = document.getElementById("name").value.trim();
+      if (!/^[A-Za-z ]{3,}$/.test(value)) {
+          setError("name", "Enter a valid name.");
+          return false;
+      }
+      setValid("name");
+      return true;
+  }
+
+  /* Date of Birth */
+  function validateDOB() {
+      const value = document.getElementById("dob").value;
+      if (value === "") {
+          setError("dob", "Please select your date of birth.");
+          return false;
+      }
+      setValid("dob");
+      return true;
+  }
+
+  /* Gender */
+  function validateGender() {
+      const value = document.getElementById("gender").value;
+      if (value === "") {
+          setError("gender", "Please select your gender.");
+          return false;
+      }
+      setValid("gender");
+      return true;
+  }
+
+  /* Email */
+  function validateEmail() {
+      const value = document.getElementById("email").value.trim();
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!pattern.test(value)) {
+          setError("email", "Enter a valid email address.");
+          return false;
+      }
+      setValid("email");
+      return true;
+  }
+
+  /* Mobile */
+  function validateMobile() {
+      const value = document.getElementById("mobile").value;
+      if (!/^[6-9]\d{9}$/.test(value)) {
+          setError("mobile", "Enter a valid 10-digit mobile number.");
+          return false;
+      }
+      setValid("mobile");
+      return true;
+  }
+
+  /* Address */
+  function validateAddress() {
+      const value = document.getElementById("address").value.trim();
+      if (value.length < 10) {
+          setError("address", "Address must contain at least 10 characters.");
+          return false;
+      }
+      setValid("address");
+      return true;
+  }
+
+  /* City */
+  function validateCity() {
+      const value = document.getElementById("city").value.trim();
+      if (value.length < 3) {
+          setError("city", "Enter a valid city/state.");
+          return false;
+      }
+      setValid("city");
+      return true;
+  }
+
+  /* PIN */
+  function validatePin() {
+      const value = document.getElementById("pin").value;
+      if (!/^\d{6}$/.test(value)) {
+          setError("pin", "PIN code must contain 6 digits.");
+          return false;
+      }
+      setValid("pin");
+      return true;
+  }
+
+  /* Generic required field */
+  function validateRequired(id, message) {
+      const value = document.getElementById(id).value.trim();
+      if (value === "") {
+          setError(id, message);
+          return false;
+      }
+      setValid(id);
+      return true;
+  }
+
+  /* Live validation */
+  document.getElementById("name").addEventListener("input", validateName);
+  document.getElementById("dob").addEventListener("change", validateDOB);
+  document.getElementById("gender").addEventListener("change", validateGender);
+  document.getElementById("email").addEventListener("input", validateEmail);
+  document.getElementById("mobile").addEventListener("input", validateMobile);
+  document.getElementById("address").addEventListener("input", validateAddress);
+  document.getElementById("city").addEventListener("input", validateCity);
+  document.getElementById("pin").addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "").slice(0, 6);
+  });
+  document.getElementById("mobile").addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "").slice(0, 10);
+  });
+
+  /* Submit */
+  form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      let valid = true;
+
+      if (!validateName()) valid = false;
+      if (!validateDOB()) valid = false;
+      if (!validateGender()) valid = false;
+      if (!validateEmail()) valid = false;
+      if (!validateMobile()) valid = false;
+      if (!validateAddress()) valid = false;
+      if (!validateCity()) valid = false;
+      if (!validatePin()) valid = false;
+
+      if (!validateRequired("qualification", "Please select your highest qualification.")) valid = false;
+      if (!validateRequired("university", "Enter your university/institute.")) valid = false;
+      if (!validateRequired("passingYear", "Enter your passing year.")) valid = false;
+      if (!validateRequired("percentage", "Enter your percentage/CGPA.")) valid = false;
+      if (!validateRequired("position", "Enter the job position.")) valid = false;
+      if (!validateRequired("experience", "Please select your experience.")) valid = false;
+      if (!validateRequired("languages", "Enter your programming languages.")) valid = false;
+      if (!validateRequired("skills", "Enter your technical skills.")) valid = false;
+
+      if (valid) {
+          const success = document.getElementById("success");
+          success.style.display = "block";
+          success.textContent = "✓ Application submitted successfully!";
+          window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      }
+  });
+
+  /* Reset */
+  form.addEventListener("reset", function () {
+      setTimeout(() => {
+          document.querySelectorAll("input, select, textarea").forEach(element => {
+              element.classList.remove("valid", "invalid");
+          });
+          document.querySelectorAll("small").forEach(element => {
+              element.textContent = "";
+          });
+          document.getElementById("success").style.display = "none";
+      }, 50);
+  });
+</script>
+
+</body>
+</html>
