@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Preferences</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Default theme styles */
+  body.default-theme {
+    background-color: #f0f2f5;
+    color: #000;
+  }
+
+  /* Light theme styles */
+  body.light-theme {
+    background-color: #ffffff;
+    color: #000;
+  }
+
+  /* Dark theme styles */
+  body.dark-theme {
+    background-color: #222;
+    color: #fff;
+  }
+
+  /* Style for the card container */
+  .card {
+    background: #fff; /* default background for light theme */
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Add dark mode styling for the card */
+  body.dark-theme .card {
+    background: #333; /* dark background for the card */
+    color: #fff;      /* text color in dark mode */
+  }
+
+  /* Heading style */
+  h2 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  /* Make heading visible in dark mode */
+  body.dark-theme h2 {
+    color: #fff;
+  }
+
+  p {
+    text-align: center;
+    font-size: 0.95em;
+    color: #555;
+  }
+
+  /* Adjust paragraph color in dark mode */
+  body.dark-theme p {
+    color: #ccc;
+  }
+
+  .form-group {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+
+  /* Buttons styling */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+
+  .save-btn {
+    background-color: #4779bb;
+    color: #fff;
+  }
+
+  .save-btn:hover {
+    background-color: #4674b1;
+  }
+
+  .clear-btn {
+    background-color: #256bc2;
+    color: #fff;
+  }
+
+  .clear-btn:hover {
+    background-color: #245bc2;
+  }
+
+  /* Status box styles */
+  .status {
+    margin-top: 20px;
+    background: #f7f7f7;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    width: 100%;
+  }
+
+  /* Dark mode for the status box */
+  body.dark-theme .status {
+    background: #444;
+    color: #fff;
+  }
+
+  .status div {
+    margin-bottom: 8px;
+  }
+
+  /* Footer styles for name and PRN */
+  .footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+    width: 100%;
+    color: inherit;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Theme Preference</h2>
+  <p>Choose your display mode and save your preference.</p>
+  <div class="form-group">
+    <label for="appearanceMode">Appearance Mode</label>
+    <select id="appearanceMode">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="default">Default</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="storageStrategy">Storage</label>
+    <select id="storageStrategy">
+      <option value="local">localStorage</option>
+      <option value="session">sessionStorage</option>
+    </select>
+  </div>
+  <div class="buttons">
+    <button class="save-btn" onclick="savePreference()">Save Preference</button>
+    <button class="clear-btn" onclick="clearPreferences()">Clear Preferences</button>
+  </div>
+  <div class="status" id="statusDisplay">
+    <div>Active View: <span id="activeView">Default Mode</span></div>
+    <div>Storage Status: <span id="storedStatus">None</span></div>
+  </div>
+  <div class="footer">
+    Manaswi Sakharwade - 24070521169
+  </div>
+</div>
+
+<script>
+  const THEME_KEY = 'userThemePreference';
+
+  // Apply theme based on preference
+  function applyTheme(theme) {
+    document.body.classList.remove('light-theme', 'dark-theme', 'default-theme');
+    switch (theme) {
+      case 'light':
+        document.body.classList.add('light-theme');
+        break;
+      case 'dark':
+        document.body.classList.add('dark-theme');
+        break;
+      default:
+        document.body.classList.add('default-theme');
+    }
+  }
+
+  // Get current preference (check sessionStorage first, then localStorage)
+  function getCurrentPreference() {
+    const sessionPref = sessionStorage.getItem(THEME_KEY);
+    if (sessionPref) return { storage: 'session', theme: sessionPref };
+    const localPref = localStorage.getItem(THEME_KEY);
+    if (localPref) return { storage: 'local', theme: localPref };
+    return { storage: 'none', theme: 'default' };
+  }
+
+  // Update display labels
+  function updateDisplay() {
+    const pref = getCurrentPreference();
+    document.getElementById('activeView').textContent = pref.theme.charAt(0).toUpperCase() + pref.theme.slice(1) + ' Mode';
+    document.getElementById('storedStatus').textContent = pref.storage !== 'none' ? pref.storage + ' Storage' : 'None';
+
+    // Set dropdowns to current preference
+    document.getElementById('appearanceMode').value = pref.theme;
+    document.getElementById('storageStrategy').value = pref.storage;
+  }
+
+  // Save the preference
+  function savePreference() {
+    const theme = document.getElementById('appearanceMode').value;
+    const storageStrategy = document.getElementById('storageStrategy').value;
+
+    if (storageStrategy === 'local') {
+      localStorage.setItem(THEME_KEY, theme);
+      sessionStorage.removeItem(THEME_KEY);
+    } else {
+      sessionStorage.setItem(THEME_KEY, theme);
+      localStorage.removeItem(THEME_KEY);
+    }
+
+    applyTheme(theme);
+    updateDisplay();
+  }
+
+  // Clear preferences
+  function clearPreferences() {
+    localStorage.removeItem(THEME_KEY);
+    sessionStorage.removeItem(THEME_KEY);
+    applyTheme('default');
+    updateDisplay();
+  }
+
+  // Initialize on page load
+  window.onload = () => {
+    const pref = getCurrentPreference();
+    applyTheme(pref.theme);
+    updateDisplay();
+  };
+</script>
+
+</body>
+</html>
